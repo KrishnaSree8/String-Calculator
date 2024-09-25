@@ -6,7 +6,15 @@ function add(numbers) {
     let delimiter = /[\n,]/;
     if (numbers.startsWith("//")) {
         const parts = numbers.split("\n");
-        delimiter = new RegExp(parts[0].slice(2));
+        const delimiterSection = parts[0].slice(2);
+        
+        if (delimiterSection.includes("[")) {
+            const delimiters = delimiterSection.match(/\[([^\]]+)\]/g).map(d => d.slice(1, -1));
+            delimiter = new RegExp(delimiters.join("|"));
+        } else {
+            delimiter = new RegExp(delimiterSection);
+        }
+        
         numbers = parts[1];
     }
     
