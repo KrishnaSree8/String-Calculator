@@ -27,3 +27,7 @@ test('supports custom delimiters', () => {
 test('throws an error for negative numbers', () => {
     expect(() => add("1,-2")).toThrow("Negatives not allowed: -2");
 });
+
+test('ignores numbers larger than 1000', () => {
+    expect(add("2,1001")).toBe(2);
+});
